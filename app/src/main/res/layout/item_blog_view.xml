@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/item_blog_height"
+    android:orientation="vertical"
+    android:background="#2C2C2C"
+    android:padding="15dp"
+    >
+    <ImageView
+        android:id="@+id/item_image"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:scaleType="centerCrop"/>
+
+    <TextView
+        android:id="@+id/item_title"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="VKSND Toi Cao: Tai xe xe tai co loi trong cai chet cua be gai o Vinh Long."
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        android:textSize="20dp"
+        />
+
+    <TextView
+        android:id="@+id/item_description"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:text="Trong ngày hôm qua (ngày 2/5), lưu lượng phương tiện trên tuyến có tăng so với ngày trước đó, song chỉ tương đương dịp cuối tuần, đạt khoảng 110.000-115.000 lượt xe. Ngày 30/4, lưu lượng phương tiện di chuyển trên tuyến cao tốc đạt khoảng gần 150.000 lượt xe. Ngày 29/4, cao tốc Pháp Vân-Cầu Giẽ đã phục vụ khoảng trên 120.000 lượt phương tiện/ngày đêm."
+        android:textColor="#D1CFCF"
+        />
+
+</LinearLayout>
