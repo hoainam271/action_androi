@@ -6,14 +6,14 @@ import androidx.annotation.IdRes;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.newspaper.ui.adapters.models.BaseRecycleViewItem;
+import com.example.newspaper.ui.adapters.view_items.ArticleViewItem;
 
-public abstract class BaseViewHolder extends RecyclerView.ViewHolder {
+public abstract class BaseViewHolder<T> extends RecyclerView.ViewHolder {
     public BaseViewHolder(@NonNull View itemView) {
         super(itemView);
     }
 
-    public abstract void onBindViewHolder(BaseRecycleViewItem baseRecycleViewItem);
+    public abstract void onBindViewHolder(T item);
 
     public <T extends View> T findViewById(@IdRes int id){
         return this.itemView.findViewById(id);

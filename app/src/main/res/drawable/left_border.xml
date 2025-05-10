@@ -5,7 +5,7 @@
         android:width="2dp"
         android:gravity="left">
         <shape android:shape="rectangle">
-            <solid android:color="#00C14D"/> <!-- Màu viền -->
+            <solid android:color="#01B484"/> <!-- Màu viền -->
         </shape>
     </item>
 

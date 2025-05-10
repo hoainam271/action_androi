@@ -1,11 +1,13 @@
 package com.example.newspaper.ui.fragments;
 
+import static android.content.Context.MODE_PRIVATE;
+
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -13,12 +15,13 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.newspaper.LoginActivity;
 import com.example.newspaper.R;
 import com.example.newspaper.SearchActivity;
+import com.example.newspaper.UpdateInforActivity;
 import com.example.newspaper.models.Article;
 import com.example.newspaper.ui.adapters.ArticleRecycleViewAdapter;
-import com.example.newspaper.ui.adapters.models.ArticleViewItem;
-import com.example.newspaper.ui.adapters.models.BaseRecycleViewItem;
+import com.example.newspaper.ui.adapters.view_items.ArticleViewItem;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,9 +41,20 @@ public class FragmentHome extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         List<Article> articles = new ArrayList<>();
-        List<BaseRecycleViewItem> items = new ArrayList<>();
+        List<ArticleViewItem> items = new ArrayList<>();
 
-        navigateSearchPage(view);
+        navigate(view, R.id.search_box, SearchActivity.class);
+
+        SharedPreferences prefs = requireContext().getSharedPreferences("MyAppPrefs", MODE_PRIVATE);
+        boolean isLoggedIn = prefs.getBoolean("isLoggedIn", false);
+
+        if(isLoggedIn){
+            navigate(view, R.id.accountBtn, UpdateInforActivity.class);
+        }else{
+            navigate(view, R.id.accountBtn, LoginActivity.class);
+        }
+
+        navigate(view, R.id.accountBtn, LoginActivity.class);
 
         articles.add(Article.builder()
                         .title("Viện KSND Tối cao nhận định về vụ tai nạn dẫn đến nổ súng ở Vĩnh Long")
@@ -66,17 +80,17 @@ public class FragmentHome extends Fragment {
                 .thumbnailUrl("https://images2.thanhnien.vn/528068263637045248/2025/5/3/edit-3-1746246222496141030607.jpeg")
                 .build());
 
-        articles.forEach(article -> {
-            items.add(new ArticleViewItem(article));
-        });
+        for(Article a : articles){
+            items.add(new ArticleViewItem(a, ArticleViewItem.TypeDisplay.MAIN));
+        }
         ArticleRecycleViewAdapter adapter = new ArticleRecycleViewAdapter(items);
         recyclerView.setAdapter(adapter);
     }
 
-    public void navigateSearchPage(View view){
-        LinearLayout searchBox = view.findViewById(R.id.search_box);
-        searchBox.setOnClickListener(v -> {
-            Intent intent = new Intent(requireContext(), SearchActivity.class);
+    public void navigate(View parentView, int viewId, Class<?> targetActivity) {
+        View button = parentView.findViewById(viewId);
+        button.setOnClickListener(v -> {
+            Intent intent = new Intent(getActivity(), targetActivity);
             startActivity(intent);
         });
     }

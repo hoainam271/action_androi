@@ -57,4 +57,6 @@ dependencies {
     compileOnly(libs.projectlombok.lombok)
     annotationProcessor(libs.projectlombok.lombok)
 
+    implementation(libs.paging.runtime)
+
 }
