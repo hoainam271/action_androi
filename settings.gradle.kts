@@ -24,6 +24,3 @@ dependencyResolutionManagement {
 
 rootProject.name = "Newspaper"
 include(":app")
-include(":lib:extensions")
-include(":lib:icons_pack")
-include(":lib:utils")

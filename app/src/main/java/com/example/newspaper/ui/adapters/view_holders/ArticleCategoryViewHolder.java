@@ -33,10 +33,10 @@ public class ArticleCategoryViewHolder extends BaseViewHolder<ArticleViewItem>{
     public void onBindViewHolder(ArticleViewItem item) {
         DateTimeFormatterUtil formatter = new DateTimeFormatterUtil();
 
-        timeText.setText(formatter.format(item.getArticle().getPublishedAt()));
-        categoryText.setText(item.getArticle().getCategory());
-        titleText.setText(item.getArticle().getTitle());
-        descriptionText.setText(item.getArticle().getSummary());
+        timeText.setText(formatter.format(item.getArticle().article.getPublishedAt()));
+        categoryText.setText(item.getArticle().category.getName());
+        titleText.setText(item.getArticle().article.getTitle());
+        descriptionText.setText(item.getArticle().article.getSummary());
         categoryDot.setBackgroundResource(R.drawable.circle_green);
     }
 }

@@ -14,6 +14,12 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments += mapOf("room.schemaLocation" to "$projectDir/schemas")
+            }
+        }
     }
 
     buildTypes {
@@ -42,8 +48,6 @@ dependencies {
     androidTestImplementation(libs.espresso.core)
     implementation(libs.multi.sliding.up.panel)
     implementation(libs.reable.bottom.bar)
-
-    implementation(project(path = ":lib:icons_pack"))
 
     implementation(libs.lifecycle.viewmodel.ktx)
     implementation(libs.lifecycle.livedata.ktx)

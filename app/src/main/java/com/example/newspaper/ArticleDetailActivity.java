@@ -19,11 +19,6 @@ public class ArticleDetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_article_detail);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
 
         ImageView thumbnail = findViewById(R.id.thumbnail);
         ImageView avatar = findViewById(R.id.avatar);
@@ -36,5 +31,9 @@ public class ArticleDetailActivity extends AppCompatActivity {
                 .load("https://cdnphoto.dantri.com.vn/dpUx3g4l-67rPhQqukF9fel8sn0=/zoom/120_120/2023/06/14/anh-1-crop-1686754741433.jpeg")
                 .apply(RequestOptions.circleCropTransform())
                 .into(avatar);
+
+        findViewById(R.id.back_icon).setOnClickListener(v -> {
+            finish();
+        });
     }
 }

@@ -1,6 +1,7 @@
 package com.example.newspaper.ui.adapters.view_items;
 
 import com.example.newspaper.models.Article;
+import com.example.newspaper.pojo.ArticleWithCategory;
 
 import java.util.List;
 
@@ -9,15 +10,16 @@ import lombok.Getter;
 @Getter
 public class ArticleViewItem {
 
-    public ArticleViewItem(Article article, TypeDisplay typeDisplay) {
+    public ArticleViewItem(ArticleWithCategory article, TypeDisplay typeDisplay) {
         this.article = article;
         this.type = typeDisplay;
     }
 
     public enum TypeDisplay{
         MAIN,
-        CATEGORY
+        CATEGORY,
+        NOTIFICATION
     }
-    private Article article;
+    private ArticleWithCategory article;
     private TypeDisplay type;
 }

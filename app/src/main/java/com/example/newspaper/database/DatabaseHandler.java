@@ -11,9 +11,22 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import com.example.newspaper.database.dao.ArticleDao;
 import com.example.newspaper.models.Article;
+import com.example.newspaper.models.Category;
+import com.example.newspaper.models.Comment;
+import com.example.newspaper.models.Emotion;
+import com.example.newspaper.models.Notification;
+import com.example.newspaper.models.ReadHistory;
+import com.example.newspaper.models.SearchHistory;
+import com.example.newspaper.models.User;
 import com.example.newspaper.utils.Converters;
 
-@Database(entities = {Article.class}, version = 1)
+@Database(
+        entities = {
+                Article.class, Comment.class, Emotion.class, Notification.class, ReadHistory.class,
+                SearchHistory.class, User.class, Category.class
+        },
+        version = 1
+)
 @TypeConverters(Converters.class)
 public abstract class DatabaseHandler extends RoomDatabase {
 
@@ -23,7 +36,7 @@ public abstract class DatabaseHandler extends RoomDatabase {
 
     public static DatabaseHandler getInstance(Context context){
         if(instance == null){
-            instance = Room.databaseBuilder(context.getApplicationContext(), DatabaseHandler.class, "root_database")
+            instance = Room.databaseBuilder(context.getApplicationContext(), DatabaseHandler.class, "news_paper_app_db")
                     .fallbackToDestructiveMigration()
                     .addCallback(roomCallBack)
                     .build();

@@ -1,5 +1,6 @@
 package com.example.newspaper.ui.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,8 +13,11 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.newspaper.NewsPointActivity;
 import com.example.newspaper.R;
 import com.example.newspaper.models.Article;
+import com.example.newspaper.models.Category;
+import com.example.newspaper.pojo.ArticleWithCategory;
 import com.example.newspaper.ui.adapters.ArticleRecycleViewAdapter;
 import com.example.newspaper.ui.adapters.view_items.ArticleViewItem;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -27,7 +31,6 @@ import java.util.List;
 
 public class FragmentCategory extends Fragment {
     private RecyclerView newsRecyclerView;
-//    private NewsAdapter newsAdapter;
     private TabLayout tabLayout;
     private ImageButton menuButton;
     private BottomSheetDialog categoriesDialog;
@@ -47,11 +50,10 @@ public class FragmentCategory extends Fragment {
         newsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         // Tạo dữ liệu tin tức mẫu
-        List<Article> newsList = createSampleNews();
+        List<ArticleWithCategory> newsList = createSampleNews();
         List<ArticleViewItem> items = new ArrayList<>();
 
-        for (Article a : newsList){
-            System.out.println(a.getPublishedAt());
+        for (ArticleWithCategory a : newsList){
             items.add(new ArticleViewItem(a, ArticleViewItem.TypeDisplay.CATEGORY));
         }
 
@@ -69,12 +71,10 @@ public class FragmentCategory extends Fragment {
 
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
-                // Không làm gì
             }
 
             @Override
             public void onTabReselected(TabLayout.Tab tab) {
-                // Không làm gì
             }
         });
 
@@ -105,21 +105,23 @@ public class FragmentCategory extends Fragment {
         // Chuyên mục Tin mới nhất
         View latestNewsCategory = dialogView.findViewById(R.id.latestNewsCategory);
         latestNewsCategory.setOnClickListener(v -> {
-            tabLayout.getTabAt(0).select(); // Chọn tab "Mới nhất"
-            categoriesDialog.dismiss();
+            Intent intent = new Intent(getActivity(), NewsPointActivity.class);
+            intent.putExtra("type", "newest");
+            startActivity(intent);
         });
 
         // Chuyên mục Điểm tin nổi bật
         View featuredNewsCategory = dialogView.findViewById(R.id.featuredNewsCategory);
         featuredNewsCategory.setOnClickListener(v -> {
-            tabLayout.getTabAt(1).select(); // Chọn tab "Điểm tin"
-            categoriesDialog.dismiss();
+            Intent intent = new Intent(getActivity(), NewsPointActivity.class);
+            intent.putExtra("type", "new-point");
+            startActivity(intent);
         });
 
         // Chuyên mục Kinh doanh
         View businessCategory = dialogView.findViewById(R.id.businessCategory);
         businessCategory.setOnClickListener(v -> {
-            tabLayout.getTabAt(3).select(); // Chọn tab "Kinh doanh"
+            tabLayout.getTabAt(3).select();
             categoriesDialog.dismiss();
         });
 
@@ -214,36 +216,64 @@ public class FragmentCategory extends Fragment {
 //        newsAdapter.updateNewsList(filteredNews);
     }
 
-    private List<Article> createSampleNews() {
-        List<Article> newsList = new ArrayList<>();
+    private List<ArticleWithCategory> createSampleNews() {
+        List<ArticleWithCategory> newsList = new ArrayList<>();
 
-        newsList.add(Article.builder()
-                        .title("Ba mẹ con tử vong trong căn nhà khóa cửa")
-                        .summary("(Dân trí) - Ba mẹ con ở tỉnh Gia Lai được phát hiện đã tử vong trong căn nhà khóa cửa. Công an đang điều tra nguyên nhân vụ việc.")
-                        .category("Pháp luật")
-                        .publishedAt(Instant.now().minus(30, ChronoUnit.SECONDS))
+        newsList.add(ArticleWithCategory.builder()
+                        .article(Article.builder()
+                                .title("Ba mẹ con tử vong trong căn nhà khóa cửa")
+                                .summary("(Dân trí) - Ba mẹ con ở tỉnh Gia Lai được phát hiện đã tử vong trong căn nhà khóa cửa. Công an đang điều tra nguyên nhân vụ việc.")
+                                .categoryId(1)
+                                .publishedAt(Instant.now().minus(30, ChronoUnit.SECONDS))
+                                .build())
+                        .category(Category.builder()
+                                .name("Xa hoi")
+                                .build())
                 .build());
 
-        newsList.add(Article.builder()
-                .title("Ukraine tuyên bố lần đầu bắn hạ tiêm kích Nga từ xuồng không người lái")
-                .summary("(Dân trí) - Ukraine cho biết đã bắn rơi tiêm kích Nga trên biển từ xuồng không người lái.")
-                .category("Thế giới")
-                .publishedAt(Instant.now().minus(15, ChronoUnit.MINUTES))
+        newsList.add(ArticleWithCategory.builder()
+                        .article(Article.builder()
+                                .title("Ukraine tuyên bố lần đầu bắn hạ tiêm kích Nga từ xuồng không người lái")
+                                .summary("(Dân trí) - Ukraine cho biết đã bắn rơi tiêm kích Nga trên biển từ xuồng không người lái.")
+                                .categoryId(2)
+                                .publishedAt(Instant.now().minus(15, ChronoUnit.MINUTES))
+                                .build())
+                        .category(Category.builder()
+                                .name("Xa hoi")
+                                .build())
                 .build());
 
-        newsList.add(Article.builder()
-                .title("Ô tô chở 20 người gặp tai nạn trên quốc lộ")
-                .summary("(Dân trí) - Xe tải đang lưu thông trên quốc lộ 20 ở Lâm Đồng, bất ngờ va chạm ô tô chở khách. Vụ tai nạn làm nhiều người hoảng loạn, giao thông qua khu vực bị ách tắc.")
-                .category("Xã hội")
-                .publishedAt(Instant.now().minus(30, ChronoUnit.MINUTES))
+        newsList.add(ArticleWithCategory.builder()
+                        .article(Article.builder()
+                                .title("Ô tô chở 20 người gặp tai nạn trên quốc lộ")
+                                .summary("(Dân trí) - Xe tải đang lưu thông trên quốc lộ 20 ở Lâm Đồng, bất ngờ va chạm ô tô chở khách. Vụ tai nạn làm nhiều người hoảng loạn, giao thông qua khu vực bị ách tắc.")
+                                .categoryId(2)
+                                .publishedAt(Instant.now().minus(30, ChronoUnit.MINUTES))
+                                .build())
+                        .category(Category.builder()
+                                .name("Xa hoi")
+                                .build())
                 .build());
 
-        newsList.add(Article.builder()
-                .title("Vụ 3 người tử vong trong khách sạn ở Nha Trang: Người phụ nữ đang mang thai")
-                .summary("(Dân trí) - Gia đình đã chôn cất 2 mẹ con trong vụ 3 người tử vong tại khách sạn ở Nha Trang. Theo người thân của nữ nạn nhân, người này đang mang thai hơn 3 tháng.")
-                .category("Xã hội")
-                .publishedAt(Instant.now().minus(90, ChronoUnit.MINUTES))
+        newsList.add(ArticleWithCategory.builder()
+                        .article(Article.builder()
+                                .title("Vụ 3 người tử vong trong khách sạn ở Nha Trang: Người phụ nữ đang mang thai")
+                                .summary("(Dân trí) - Gia đình đã chôn cất 2 mẹ con trong vụ 3 người tử vong tại khách sạn ở Nha Trang. Theo người thân của nữ nạn nhân, người này đang mang thai hơn 3 tháng.")
+                                .categoryId(1)
+                                .publishedAt(Instant.now().minus(90, ChronoUnit.MINUTES))
+                                .build())
+                        .category(Category.builder()
+                                .name("Xa hoi")
+                                .build())
                 .build());
         return newsList;
+    }
+
+    public void navigate(View parentView, int viewId, Class<?> targetActivity) {
+        View button = parentView.findViewById(viewId);
+        button.setOnClickListener(v -> {
+            Intent intent = new Intent(getActivity(), targetActivity);
+            startActivity(intent);
+        });
     }
 }

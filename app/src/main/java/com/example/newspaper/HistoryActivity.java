@@ -1,6 +1,7 @@
 package com.example.newspaper;
 
 import android.os.Bundle;
+import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,14 +16,14 @@ public class HistoryActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_history);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
 
         findViewById(R.id.back_icon).setOnClickListener(v -> {
             finish();
         });
+
+        TextView title = findViewById(R.id.title);
+        String type = getIntent().getStringExtra("type");
+        if(type.equals("history")) title.setText("Bài viết đã xem");
+        else if(type.equals("saved")) title.setText("Bài viết đã lưu");
     }
 }

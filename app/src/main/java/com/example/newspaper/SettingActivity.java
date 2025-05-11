@@ -36,11 +36,6 @@ public class SettingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_setting);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
 
         findViewById(R.id.back_icon).setOnClickListener(v -> {
             finish();
@@ -139,7 +134,7 @@ public class SettingActivity extends AppCompatActivity {
 //        });
 
         navigate(R.id.ads_contact_icon, AdsContactSetting.class);
-        findViewById(R.id.nut8).setOnClickListener(v -> showRatingDialog());
+        findViewById(R.id.rating_icon).setOnClickListener(v -> showRatingDialog());
 
     }
 
