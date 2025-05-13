@@ -22,8 +22,23 @@ public class ArticleWithCategory {
     public Article article;
 
     @Relation(
-            parentColumn = "category_id",
+            parentColumn = "categoryId",
             entityColumn = "id"
     )
     public Category category;
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+
+        ArticleWithCategory that = (ArticleWithCategory) o;
+        return article.equals(that.article) && category.equals(that.category);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = article.hashCode();
+        result = 31 * result + category.hashCode();
+        return result;
+    }
 }

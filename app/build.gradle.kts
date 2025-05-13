@@ -63,4 +63,6 @@ dependencies {
 
     implementation(libs.paging.runtime)
 
+    implementation (libs.jbcrypt)
+
 }

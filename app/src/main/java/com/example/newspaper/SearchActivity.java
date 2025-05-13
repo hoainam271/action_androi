@@ -14,10 +14,13 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.newspaper.database.repositories.SearchHistoryRepository;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class SearchActivity extends AppCompatActivity {
+    SearchHistoryRepository repository;
 
     private List<String> trends;
     private List<String> histories;
@@ -39,7 +42,7 @@ public class SearchActivity extends AppCompatActivity {
         listTrends = findViewById(R.id.list_trend);
         listHistories = findViewById(R.id.list_history);
 
-        fakeData();
+        histories = repository.getSearchHistory(1);
 
         ArrayAdapter<String> trendAdapter = new ArrayAdapter<>(this, R.layout.item_trend_search_view, R.id.trend_topic, trends);
         ArrayAdapter<String> historyAdapter = new ArrayAdapter<>(this, R.layout.item_history_search_view, R.id.history_topic, histories);
@@ -58,16 +61,6 @@ public class SearchActivity extends AppCompatActivity {
         this.trends.add("Trending number 7");
         this.trends.add("Trending number 8");
         this.trends.add("Trending number 9");
-
-        this.histories.add("History number 1");
-        this.histories.add("History number 2");
-        this.histories.add("History number 3");
-        this.histories.add("History number 4");
-        this.histories.add("History number 5");
-        this.histories.add("History number 6");
-        this.histories.add("History number 7");
-        this.histories.add("History number 8");
-        this.histories.add("History number 9");
     }
 
 }

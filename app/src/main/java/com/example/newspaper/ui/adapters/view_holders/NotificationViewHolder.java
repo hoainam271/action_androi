@@ -15,12 +15,12 @@ import com.example.newspaper.R;
 import com.example.newspaper.ui.adapters.view_items.ArticleViewItem;
 import com.example.newspaper.utils.DateTimeFormatterUtil;
 
-public class NotificationHolder extends BaseViewHolder<ArticleViewItem>{
+public class NotificationViewHolder extends BaseViewHolder<ArticleViewItem>{
 
     ImageView thumbnail;
     TextView title, publishedAt;
     View read;
-    public NotificationHolder(@NonNull View itemView) {
+    public NotificationViewHolder(@NonNull View itemView) {
         super(itemView);
 
         thumbnail = findViewById(R.id.thumbnail);

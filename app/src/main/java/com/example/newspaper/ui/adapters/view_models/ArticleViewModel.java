@@ -1,28 +1,31 @@
 package com.example.newspaper.ui.adapters.view_models;
 
-import android.app.Application;
-
-import androidx.annotation.NonNull;
-import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.ViewModel;
 
 import com.example.newspaper.database.repositories.ArticleRepository;
-import com.example.newspaper.models.Article;
+import com.example.newspaper.pojo.ArticleWithCategory;
 
 import java.util.List;
+import java.util.concurrent.Executors;
 
-import lombok.Getter;
+public class ArticleViewModel extends ViewModel {
+    private final ArticleRepository repository;
+    private final MutableLiveData<List<ArticleWithCategory>> articles = new MutableLiveData<>();
 
-public class ArticleViewModel extends AndroidViewModel {
-    private ArticleRepository repository;
-
-    @Getter
-    private LiveData<List<Article>> articles;
-    public ArticleViewModel(@NonNull Application application) {
-        super(application);
-
-        this.repository = new ArticleRepository(application.getApplicationContext());
-        this.articles = repository.findAlls();
+    public ArticleViewModel(ArticleRepository repository) {
+        this.repository = repository;
     }
 
+    public LiveData<List<ArticleWithCategory>> getArticles() {
+        return articles;
+    }
+
+    public void loadArticles(int limit, int offset) {
+        Executors.newSingleThreadExecutor().execute(() -> {
+            List<ArticleWithCategory> data = repository.getPagedArticles(limit, offset);
+            articles.postValue(data);
+        });
+    }
 }

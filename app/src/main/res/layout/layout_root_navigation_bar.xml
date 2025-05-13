@@ -24,7 +24,7 @@
         app:rbb_tabColorSelected="#00B366"
         app:rbb_textStyle="bold"
         app:rbb_textSize="16sp"
-        app:rbb_iconSize="30dp"
+        app:rbb_iconSize="25dp"
         android:paddingBottom="20dp"
         />
 </FrameLayout>

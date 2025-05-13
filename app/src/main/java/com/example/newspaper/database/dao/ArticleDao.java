@@ -1,13 +1,18 @@
 package com.example.newspaper.database.dao;
 
 import androidx.lifecycle.LiveData;
+import androidx.paging.DataSource;
+import androidx.paging.PagingSource;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
+import androidx.room.Transaction;
 import androidx.room.Update;
 
 import com.example.newspaper.models.Article;
+import com.example.newspaper.pojo.ArticleWithCategory;
+import com.example.newspaper.ui.adapters.view_items.ArticleViewItem;
 
 import java.util.List;
 
@@ -27,9 +32,9 @@ public interface ArticleDao {
     @Query("DELETE FROM article_table")
     void deleteAlls();
 
-    @Query("SELECT * FROM article_table ORDER BY publishedAt ASC")
-    LiveData<List<Article>> findAlls();
+    @Query("SELECT * FROM article_table ORDER BY publishedAt DESC LIMIT :limit OFFSET :offset")
+    List<ArticleWithCategory> getArticlesPaged(int limit, int offset);
 
-//    @Query("SELECT * FROM article_table ORDER BY publishedAt ASC")
-//    PagingSource<Integer, Article> getPageArticle();
+    @Query("SELECT * FROM article_table WHERE id IN (:articleIds)")
+    List<ArticleWithCategory> getArticlesByIds(List<Integer> articleIds);
 }
