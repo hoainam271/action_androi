@@ -24,7 +24,10 @@ public interface SearchHistoryDao {
     @Query("DELETE FROM search_history_table")
     void deleteAlls();
 
-    @Query("SELECT keyword FROM search_history_table WHERE :userId")
-    List<String> getSearchHistoryByUserId(int userId);
+    @Query("SELECT * FROM search_history_table WHERE :userId")
+    List<SearchHistory> getSearchHistoryByUserId(int userId);
+
+    @Query("SELECT keyword, COUNT(*) AS search_count FROM search_history_table GROUP BY keyword ORDER BY search_count DESC LIMIT 10;")
+    List<String> getSearchTrends();
 
 }

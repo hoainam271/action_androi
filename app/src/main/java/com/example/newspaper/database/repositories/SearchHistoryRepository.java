@@ -42,7 +42,11 @@ public class SearchHistoryRepository {
         });
     }
 
-    public List<String> getSearchHistory(int userId) {
+    public List<SearchHistory> getSearchHistory(int userId) {
         return searchHistoryDao.getSearchHistoryByUserId(userId);
+    }
+
+    public List<String> getSearchTrends(){
+        return searchHistoryDao.getSearchTrends();
     }
 }

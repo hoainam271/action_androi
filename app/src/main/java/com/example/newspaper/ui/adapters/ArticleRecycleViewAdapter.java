@@ -18,7 +18,7 @@ import com.example.newspaper.ui.adapters.view_items.ArticleViewItem;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ArticleRecycleViewAdapter extends BaseRecycleViewAdapter {
+public class ArticleRecycleViewAdapter extends BaseRecycleViewAdapter<ArticleViewItem> {
     private List<ArticleViewItem> items;
     private boolean isLoading = false;
 

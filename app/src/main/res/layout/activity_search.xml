@@ -41,6 +41,7 @@
                     android:src="@drawable/ic_search"/>
 
                 <EditText
+                    android:id="@+id/textKeyword"
                     android:layout_width="295dp"
                     android:layout_height="match_parent"
                     android:textColor="@color/white"
@@ -95,7 +96,7 @@
             android:textColor="@color/white"
             />
 
-        <ListView
+        <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/list_history"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

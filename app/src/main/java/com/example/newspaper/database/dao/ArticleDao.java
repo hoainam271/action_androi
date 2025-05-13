@@ -37,4 +37,11 @@ public interface ArticleDao {
 
     @Query("SELECT * FROM article_table WHERE id IN (:articleIds)")
     List<ArticleWithCategory> getArticlesByIds(List<Integer> articleIds);
+
+    @Query("SELECT * FROM article_table WHERE " +
+            "title LIKE :keyword1 OR content LIKE :keyword1 " +
+            "OR title LIKE :keyword2 OR content LIKE :keyword2 " +
+            "OR title LIKE :keyword3 OR content LIKE :keyword3 " +
+            "ORDER BY publishedAt DESC")
+    List<ArticleWithCategory> searchPostsByKeywords(String keyword1, String keyword2, String keyword3);
 }

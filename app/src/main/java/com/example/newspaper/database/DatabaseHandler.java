@@ -150,6 +150,30 @@ public abstract class DatabaseHandler extends RoomDatabase {
                         .role("admin")
                         .build());
 
+                db.getUserDao().insert(User.builder()
+                        .fullName("Hoàng Bá Minh")
+                        .email("minhhb@gmail.com")
+                        .phone("06413165481")
+                        .avatarUrl("https://untitledui.com/images/avatars/orlando-diggs")
+                        .createdAt(Date.from(Instant.now()))
+                        .isMale(true)
+                        .passwordHash(EncryptionUtil.hashPassword("minhhb123"))
+                        .city("Hải Phòng")
+                        .role("admin")
+                        .build());
+
+                db.getUserDao().insert(User.builder()
+                        .fullName("Đỗ Hoài Nam")
+                        .email("namhd@gmail.com")
+                        .phone("012345678")
+                        .avatarUrl("https://untitledui.com/images/avatars/joshua-wilson")
+                        .createdAt(Date.from(Instant.now()))
+                        .isMale(true)
+                        .passwordHash(EncryptionUtil.hashPassword("vsung2608"))
+                        .city("Thuận Thành - Bắc Ninh")
+                        .role("admin")
+                        .build());
+
                 // tao du lieu cho bang bai viet
                 db.getArticleDao().insert(Article.builder()
                         .title("Mỹ - Trung liệu đã chính thức \"tháo ngòi\" thương chiến?")

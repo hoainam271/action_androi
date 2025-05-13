@@ -10,11 +10,11 @@ import com.example.newspaper.ui.adapters.view_items.ArticleViewItem;
 
 import java.util.List;
 
-public class BaseRecycleViewAdapter extends RecyclerView.Adapter<BaseViewHolder> {
+public class BaseRecycleViewAdapter<T> extends RecyclerView.Adapter<BaseViewHolder> {
 
-    private List<ArticleViewItem> items;
+    private List<T> items;
 
-    public BaseRecycleViewAdapter(List<ArticleViewItem> items) {
+    public BaseRecycleViewAdapter(List<T> items) {
         this.items = items;
     }
 
