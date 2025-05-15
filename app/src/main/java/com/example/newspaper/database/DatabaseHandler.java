@@ -23,19 +23,23 @@ import com.example.newspaper.models.SearchHistory;
 import com.example.newspaper.models.User;
 import com.example.newspaper.utils.Converters;
 import com.example.newspaper.utils.EncryptionUtil;
+import com.example.newspaper.models.SavedArticle;
 
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.Date;
 import java.util.concurrent.Executors;
+import com.example.newspaper.models.SavedArticle;
+import com.example.newspaper.database.dao.SavedArticleDao;
 
 @Database(
         entities = {
                 Article.class, Comment.class, Emotion.class, Notification.class, ReadHistory.class,
-                SearchHistory.class, User.class, Category.class
+                SearchHistory.class, User.class, Category.class, SavedArticle.class
         },
-        version = 1
+        version = 2
 )
+
 @TypeConverters(Converters.class)
 public abstract class DatabaseHandler extends RoomDatabase {
 
@@ -46,6 +50,7 @@ public abstract class DatabaseHandler extends RoomDatabase {
     public abstract CategoryDao getCategoryDao();
     public abstract UserDao getUserDao();
     public abstract SearchHistoryDao getSearchHistoryDao();
+    public abstract SavedArticleDao getSavedArticleDao();
 
     public static DatabaseHandler getInstance(Context context){
         if(instance == null){

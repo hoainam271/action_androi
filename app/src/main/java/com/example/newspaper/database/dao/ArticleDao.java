@@ -16,7 +16,6 @@ import com.example.newspaper.ui.adapters.view_items.ArticleViewItem;
 
 import java.util.List;
 
-
 @Dao
 public interface ArticleDao {
 
@@ -44,4 +43,14 @@ public interface ArticleDao {
             "OR title LIKE :keyword3 OR content LIKE :keyword3 " +
             "ORDER BY publishedAt DESC")
     List<ArticleWithCategory> searchPostsByKeywords(String keyword1, String keyword2, String keyword3);
+
+    @Query("SELECT * FROM article_table WHERE id = :id LIMIT 1")
+    Article getById(int id);
+
+    // ✅ Thêm mới - dành cho ManageArticlesActivity
+    @Query("SELECT * FROM article_table ORDER BY publishedAt DESC")
+    List<Article> getAll();
+
+
+
 }

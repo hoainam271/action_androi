@@ -42,7 +42,29 @@ public class Article {
     private Instant updatedAt;
     private Integer categoryId;
     private Integer userId;
+    private String author;
+    private String status;
 
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public Article(int id, String title, String summary, String content, String thumbnailUrl, Instant publishedAt) {
+        this.id = id;
+        this.title = title;
+        this.summary = summary;
+        this.content = content;
+        this.thumbnailUrl = thumbnailUrl;
+        this.publishedAt = publishedAt;
+        this.viewCount = 0;
+        this.updatedAt = publishedAt;
+        this.categoryId = -1;
+        this.userId = -1;
+    }
     public Integer getId() {
         return id;
     }
@@ -53,6 +75,14 @@ public class Article {
 
     public String getTitle() {
         return title;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
     }
 
     public void setTitle(String title) {
@@ -127,7 +157,9 @@ public class Article {
     }
 
     @Ignore
-    public Article(Integer id, String title, String summary, String content, String thumbnailUrl, Integer viewCount, Instant publishedAt, Instant updatedAt, Integer categoryId, Integer userId) {
+    public Article(Integer id, String title, String summary, String content, String thumbnailUrl,
+                   Integer viewCount, Instant publishedAt, Instant updatedAt,
+                   Integer categoryId, Integer userId, String author, String status) {
         this.id = id;
         this.title = title;
         this.summary = summary;
@@ -138,5 +170,9 @@ public class Article {
         this.updatedAt = updatedAt;
         this.categoryId = categoryId;
         this.userId = userId;
+        this.author = author;
+        this.status = status;
     }
+
+
 }

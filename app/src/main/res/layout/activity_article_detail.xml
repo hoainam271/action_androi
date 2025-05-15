@@ -398,9 +398,10 @@ Cục Quản lý và phát triển thị trường trong nước tăng cường 
                 android:paddingRight="10dp"/>
 
             <ImageView
+                android:id="@+id/bookmark_icon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:srcCompat="@drawable/ic_bookmark"
+                app:srcCompat="@drawable/ic_bookmark_border"
                 android:paddingRight="10dp"/>
 
             <ImageView

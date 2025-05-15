@@ -72,6 +72,12 @@ public class FragmentHome extends Fragment {
             articles.forEach(a -> items.add(new ArticleViewItem(a, ArticleViewItem.TypeDisplay.MAIN)));
             adapter.setArticles(items);
         });
+        // ✅ Mở trang Admin
+        view.findViewById(R.id.btnAdmin).setOnClickListener(v -> {
+            Intent intent = new Intent(getActivity(), com.example.newspaper.ui.activities.AdminHomeActivity.class);
+            startActivity(intent);
+        });
+
     }
 
     public void navigate(View parentView, int viewId, Class<?> targetActivity) {

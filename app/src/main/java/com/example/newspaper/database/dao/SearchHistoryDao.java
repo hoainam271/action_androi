@@ -13,21 +13,22 @@ import java.util.List;
 @Dao
 public interface SearchHistoryDao {
     @Insert
-    void insert(SearchHistory SearchHistory);
+    void insert(SearchHistory searchHistory);
 
     @Update
-    void update(SearchHistory SearchHistory);
+    void update(SearchHistory searchHistory);
 
     @Delete
-    void delete(SearchHistory SearchHistory);
+    void delete(SearchHistory searchHistory);
 
     @Query("DELETE FROM search_history_table")
     void deleteAlls();
 
-    @Query("SELECT * FROM search_history_table WHERE :userId")
+    // ✅ Sửa lỗi: thêm điều kiện rõ ràng
+    @Query("SELECT * FROM search_history_table WHERE userId = :userId")
     List<SearchHistory> getSearchHistoryByUserId(int userId);
 
-    @Query("SELECT keyword, COUNT(*) AS search_count FROM search_history_table GROUP BY keyword ORDER BY search_count DESC LIMIT 10;")
+    // ✅ Sửa lỗi: chỉ lấy cột keyword để trả về List<String>
+    @Query("SELECT keyword FROM search_history_table GROUP BY keyword ORDER BY COUNT(*) DESC LIMIT 10")
     List<String> getSearchTrends();
-
 }

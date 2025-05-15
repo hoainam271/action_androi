@@ -16,6 +16,9 @@ public class Category {
     private String name;
     private String description;
     private LocalDate createdAt;
+    public Category(String name) {
+        this.name = name;
+    }
 
     public Integer getId() {
         return id;

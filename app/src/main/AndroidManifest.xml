@@ -65,6 +65,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".ui.activities.AdminHomeActivity" />
+        <activity android:name=".ui.activities.ManageArticlesActivity" />
+        <activity android:name=".ui.activities.AddEditArticleActivity" />
+
     </application>
 
 </manifest>

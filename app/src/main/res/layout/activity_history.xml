@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -26,7 +25,6 @@
             android:src="@drawable/ic_back"
             android:contentDescription="Quay lại" />
 
-
         <TextView
             android:id="@+id/title"
             android:layout_width="wrap_content"
@@ -53,7 +51,6 @@
         android:paddingHorizontal="15dp"
         android:orientation="horizontal">
 
-        <!-- Tin bài tab -->
         <LinearLayout
             android:layout_weight="1"
             android:layout_width="0dp"
@@ -75,7 +72,6 @@
                 android:background="#1E7C2C" />
         </LinearLayout>
 
-        <!-- Video tab -->
         <LinearLayout
             android:layout_weight="1"
             android:layout_width="0dp"
@@ -97,17 +93,11 @@
         </LinearLayout>
     </LinearLayout>
 
-
-    <!-- Danh sách tin -->
-    <ScrollView
+    <!-- RecyclerView không được đặt trong ScrollView -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/listViews"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/listViews"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            tools:listitem="@layout/item_history_or_saved_view"/>
-    </ScrollView>
-
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        tools:listitem="@layout/item_history_or_saved_view"/>
 </LinearLayout>

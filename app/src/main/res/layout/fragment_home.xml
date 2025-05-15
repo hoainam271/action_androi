@@ -80,6 +80,14 @@
                 android:src="@drawable/ic_mic" />
 
         </LinearLayout>
+        <Button
+            android:id="@+id/btnAdmin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Trang Admin"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="12dp"
+            />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/list_blogs"

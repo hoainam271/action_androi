@@ -1,5 +1,6 @@
 package com.example.newspaper.ui.adapters;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
@@ -7,6 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.newspaper.ArticleDetailActivity;
 import com.example.newspaper.R;
 import com.example.newspaper.pojo.ArticleWithCategory;
 import com.example.newspaper.ui.adapters.view_holders.ArticleCategoryViewHolder;
@@ -56,8 +58,24 @@ public class ArticleRecycleViewAdapter extends BaseRecycleViewAdapter<ArticleVie
 
     @Override
     public void onBindViewHolder(@NonNull BaseViewHolder holder, int position) {
-        holder.onBindViewHolder(items.get(position));
+        ArticleViewItem item = items.get(position);
+
+        holder.itemView.setOnClickListener(v -> {
+            ArticleWithCategory article = item.getArticle();
+
+            Intent intent = new Intent(v.getContext(), ArticleDetailActivity.class);
+            intent.putExtra("articleId", article.article.getId() + ""); // ép int sang String
+            intent.putExtra("title", article.article.getTitle());
+            intent.putExtra("description", article.article.getSummary());
+            intent.putExtra("imageUrl", article.article.getThumbnailUrl());
+            intent.putExtra("category", article.category.getName());
+
+            v.getContext().startActivity(intent);
+        });
+
+        holder.onBindViewHolder(item);
     }
+
 
     @Override
     public int getItemCount() {
