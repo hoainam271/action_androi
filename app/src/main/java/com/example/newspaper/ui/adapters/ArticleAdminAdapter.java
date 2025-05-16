@@ -4,14 +4,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.newspaper.R;
 import com.example.newspaper.models.Article;
 
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.function.Consumer;
 
@@ -30,6 +34,7 @@ public class ArticleAdminAdapter extends RecyclerView.Adapter<ArticleAdminAdapte
     public static class ViewHolder extends RecyclerView.ViewHolder {
         TextView tvTitle, tvStatus;
         Button btnEdit, btnDelete;
+        ImageView imgThumbnail;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -37,6 +42,7 @@ public class ArticleAdminAdapter extends RecyclerView.Adapter<ArticleAdminAdapte
             tvStatus = itemView.findViewById(R.id.tvStatus);
             btnEdit = itemView.findViewById(R.id.btnEdit);
             btnDelete = itemView.findViewById(R.id.btnDelete);
+            imgThumbnail = itemView.findViewById(R.id.imgThumbnail); // ✅ Thêm để load ảnh
         }
     }
 
@@ -51,7 +57,23 @@ public class ArticleAdminAdapter extends RecyclerView.Adapter<ArticleAdminAdapte
     public void onBindViewHolder(@NonNull ArticleAdminAdapter.ViewHolder holder, int position) {
         Article article = articles.get(position);
         holder.tvTitle.setText(article.getTitle());
-        holder.tvStatus.setText("Trạng thái: " + article.getStatus());
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")
+                .withZone(ZoneId.systemDefault());
+
+        if (article.getPublishedAt() != null) {
+            String formatted = formatter.format(article.getPublishedAt());
+            holder.tvStatus.setText("Đã đăng: " + formatted);
+        } else {
+            holder.tvStatus.setText("Chưa đăng");
+        }
+
+
+        // ✅ Load ảnh từ thumbnailUrl
+        Glide.with(holder.itemView.getContext())
+                .load(article.getThumbnailUrl())
+                .placeholder(R.drawable.bg_image_placeholder)
+                .error(R.drawable.bg_image_placeholder)
+                .into(holder.imgThumbnail);
 
         holder.btnEdit.setOnClickListener(v -> onEdit.accept(article));
         holder.btnDelete.setOnClickListener(v -> onDelete.accept(article));

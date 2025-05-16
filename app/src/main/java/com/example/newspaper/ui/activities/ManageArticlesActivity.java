@@ -33,19 +33,10 @@ public class ManageArticlesActivity extends AppCompatActivity {
         fabAdd = findViewById(R.id.fabAddArticle);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        fabAdd.setOnClickListener(v ->
-                startActivity(new Intent(this, AddEditArticleActivity.class))
-        );
-//        Article testArticle = new Article();
-//        testArticle.setTitle("Bài viết mẫu");
-//        testArticle.setContent("Đây là nội dung");
-//        testArticle.setAuthor("Admin");
-//        testArticle.setStatus("Published");
-//        testArticle.setPublishedAt(java.time.Instant.now());
-//
-//        DatabaseHandler.getInstance(this).getArticleDao().insert(testArticle);
-//        loadArticles(); // Hiển thị bài viết sau khi thêm bài viết mẫu
-
+        fabAdd.setOnClickListener(v -> {
+            Intent intent = new Intent(this, AddEditArticleActivity.class);
+            startActivity(intent);
+        });
     }
 
     private void loadArticles() {
@@ -54,10 +45,17 @@ public class ManageArticlesActivity extends AppCompatActivity {
                 List<Article> result = DatabaseHandler.getInstance(this).getArticleDao().getAll();
                 runOnUiThread(() -> {
                     articleList = result;
+
                     adapter = new ArticleAdminAdapter(articleList,
                             article -> {
+                                // ✅ Truyền đầy đủ thông tin bài viết để sửa
                                 Intent intent = new Intent(this, AddEditArticleActivity.class);
                                 intent.putExtra("article_id", article.getId());
+                                intent.putExtra("title", article.getTitle());
+                                intent.putExtra("author", article.getAuthor());
+                                intent.putExtra("summary", article.getSummary());
+                                intent.putExtra("content", article.getContent());
+                                intent.putExtra("thumbnailUrl", article.getThumbnailUrl());
                                 startActivity(intent);
                             },
                             article -> {
@@ -65,7 +63,7 @@ public class ManageArticlesActivity extends AppCompatActivity {
                                     DatabaseHandler.getInstance(this).getArticleDao().delete(article);
                                     runOnUiThread(() -> {
                                         Toast.makeText(this, "Đã xóa bài viết", Toast.LENGTH_SHORT).show();
-                                        loadArticles(); // gọi lại để refresh
+                                        loadArticles(); // Refresh danh sách
                                     });
                                 }).start();
                             });
@@ -78,10 +76,6 @@ public class ManageArticlesActivity extends AppCompatActivity {
             }
         }).start();
     }
-
-
-
-
 
     @Override
     protected void onResume() {

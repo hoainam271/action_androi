@@ -65,5 +65,7 @@ dependencies {
 
     implementation (libs.jbcrypt)
     implementation("jp.wasabeef:richeditor-android:2.0.0")
+    implementation ("com.github.bumptech.glide:glide:4.15.1")
+    annotationProcessor ("com.github.bumptech.glide:compiler:4.15.1")
 
 }

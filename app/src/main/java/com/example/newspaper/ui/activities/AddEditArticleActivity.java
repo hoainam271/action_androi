@@ -53,6 +53,7 @@ public class AddEditArticleActivity extends AppCompatActivity {
                 if (!url.isEmpty()) {
                     Glide.with(AddEditArticleActivity.this)
                             .load(url)
+                            .placeholder(R.drawable.bg_image_placeholder)
                             .into(imgPreview);
                 } else {
                     imgPreview.setImageDrawable(null);
@@ -61,6 +62,18 @@ public class AddEditArticleActivity extends AppCompatActivity {
         });
 
         articleId = getIntent().getIntExtra("article_id", -1);
+
+        // Nhận từ Intent nếu là sửa trực tiếp
+        String intentThumbnail = getIntent().getStringExtra("thumbnailUrl");
+        if (intentThumbnail != null && articleId == -1) {
+            edtThumbnail.setText(intentThumbnail);
+            Glide.with(this)
+                    .load(intentThumbnail)
+                    .placeholder(R.drawable.bg_image_placeholder)
+                    .into(imgPreview);
+        }
+
+        // Nếu là sửa từ DB
         if (articleId != -1) {
             new Thread(() -> {
                 currentArticle = DatabaseHandler.getInstance(this).getArticleDao().getById(articleId);
@@ -71,6 +84,11 @@ public class AddEditArticleActivity extends AppCompatActivity {
                         edtThumbnail.setText(currentArticle.getThumbnailUrl());
                         edtSummary.setText(currentArticle.getSummary());
                         editorContent.setHtml(currentArticle.getContent());
+
+                        Glide.with(this)
+                                .load(currentArticle.getThumbnailUrl())
+                                .placeholder(R.drawable.bg_image_placeholder)
+                                .into(imgPreview);
                     }
                 });
             }).start();

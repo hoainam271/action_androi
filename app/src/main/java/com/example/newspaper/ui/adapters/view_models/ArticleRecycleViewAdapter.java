@@ -3,12 +3,14 @@ package com.example.newspaper.ui.adapters.view_models;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.newspaper.R;
 import com.example.newspaper.models.Article;
 
@@ -28,12 +30,14 @@ public class ArticleRecycleViewAdapter extends RecyclerView.Adapter<ArticleRecyc
 
     public static class ArticleViewHolder extends RecyclerView.ViewHolder {
         TextView tvTitle, tvStatus;
+        ImageView imgThumbnail;
         Button btnEdit, btnDelete;
 
         public ArticleViewHolder(@NonNull View itemView) {
             super(itemView);
             tvTitle = itemView.findViewById(R.id.tvTitle);
             tvStatus = itemView.findViewById(R.id.tvStatus);
+            imgThumbnail = itemView.findViewById(R.id.imgThumbnail);
             btnEdit = itemView.findViewById(R.id.btnEdit);
             btnDelete = itemView.findViewById(R.id.btnDelete);
         }
@@ -52,6 +56,12 @@ public class ArticleRecycleViewAdapter extends RecyclerView.Adapter<ArticleRecyc
         holder.tvTitle.setText(article.getTitle());
         holder.tvStatus.setText("Trạng thái: " + article.getStatus());
 
+        Glide.with(holder.itemView.getContext())
+                .load(article.getThumbnailUrl())
+                .placeholder(R.drawable.bg_image_placeholder)
+                .error(R.drawable.bg_image_placeholder)
+                .into(holder.imgThumbnail);
+
         holder.btnEdit.setOnClickListener(v -> onEdit.accept(article));
         holder.btnDelete.setOnClickListener(v -> onDelete.accept(article));
     }
@@ -59,5 +69,10 @@ public class ArticleRecycleViewAdapter extends RecyclerView.Adapter<ArticleRecyc
     @Override
     public int getItemCount() {
         return articles.size();
+    }
+
+    public void setArticles(List<Article> updatedArticles) {
+        this.articles = updatedArticles;
+        notifyDataSetChanged();
     }
 }
