@@ -64,5 +64,6 @@ dependencies {
     implementation(libs.paging.runtime)
 
     implementation (libs.jbcrypt)
+    implementation("jp.wasabeef:richeditor-android:2.0.0")
 
 }

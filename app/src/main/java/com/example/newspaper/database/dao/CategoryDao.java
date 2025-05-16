@@ -30,4 +30,6 @@ public interface CategoryDao {
 
     @Query("SELECT * FROM category_table ORDER BY id ASC")
     List<Category> getAllDirect();
+    @Query("SELECT * FROM category_table")
+    List<Category> getAll();
 }

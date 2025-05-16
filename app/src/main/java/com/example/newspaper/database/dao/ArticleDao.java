@@ -20,7 +20,7 @@ import java.util.List;
 public interface ArticleDao {
 
     @Insert
-    void insert(Article article);
+    long insert(Article article);
 
     @Update
     void update(Article article);
